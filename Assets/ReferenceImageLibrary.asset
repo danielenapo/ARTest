@@ -23,5 +23,15 @@ MonoBehaviour:
       m_GuidHigh: 88396861501929722
     m_Size: {x: 0.08, y: 0.0796}
     m_SpecifySize: 1
-    m_Name: okcomputer
+    m_Name: moon
     m_Texture: {fileID: 2800000, guid: 1b06cccbf37d4f14faf814297a0c3a01, type: 3}
+  - m_SerializedGuid:
+      m_GuidLow: 5390327405236986513
+      m_GuidHigh: 5738983655742090900
+    m_SerializedTextureGuid:
+      m_GuidLow: 17015902494696511740
+      m_GuidHigh: 14171608255027461272
+    m_Size: {x: 0.075, y: 0.07568182}
+    m_SpecifySize: 1
+    m_Name: earth
+    m_Texture: {fileID: 2800000, guid: 311198fca12aec2498bce7a09faaabc4, type: 3}
