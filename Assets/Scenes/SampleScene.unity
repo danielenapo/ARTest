@@ -369,6 +369,7 @@ GameObject:
   - component: {fileID: 373826923}
   - component: {fileID: 373826922}
   - component: {fileID: 373826924}
+  - component: {fileID: 373826925}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -419,6 +420,22 @@ MonoBehaviour:
   m_SerializedLibrary: {fileID: 11400000, guid: f5004de038d654b47bf4fbb397aa8c78, type: 2}
   m_MaxNumberOfMovingImages: 2
   m_TrackedImagePrefab: {fileID: 528562905546064605, guid: 193c54707ec5d3747834f520aad104e4, type: 3}
+--- !u!114 &373826925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373826921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a698c7371adecf47b4d0645764f2c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Images:
+  - m_Texture: {fileID: 2800000, guid: 311198fca12aec2498bce7a09faaabc4, type: 3}
+    m_Name: solaris
+    m_Width: 0.07
 --- !u!1 &1516791631
 GameObject:
   m_ObjectHideFlags: 0
