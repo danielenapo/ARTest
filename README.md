@@ -1,5 +1,6 @@
 # ARTest
-Andorid app to test AR functionality.
+Andorid app to test AR image tracking.
+
 Made using Google's ARCore with Unity and AR Foundation.
 
 
