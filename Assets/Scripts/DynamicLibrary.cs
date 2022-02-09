@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Text;
 using Unity.Jobs;
 using UnityEngine;
@@ -14,7 +15,6 @@ namespace UnityEngine.XR.ARFoundation.Samples
     [RequireComponent(typeof(ARTrackedImageManager))]
     public class DynamicLibrary : MonoBehaviour
     {
-        //CLASSE PER GESTIONE DATI TEXTURE
         [Serializable]
         public class ImageData
         {
@@ -48,8 +48,10 @@ namespace UnityEngine.XR.ARFoundation.Samples
             public AddReferenceImageJobState jobState { get; set; }
         }
 
+        private int imagesCounter = 0; //number of images added
+
         [SerializeField, Tooltip("The set of images to add to the image library at runtime")]
-        ImageData[] m_Images; //vettore dei dati
+        ImageData[] m_Images;
 
         /// <summary>
         /// The set of images to add to the image library at runtime
@@ -62,12 +64,12 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         enum State
         {
-            NoImagesAdded,
-            AddImagesRequested,
-            AddingImages,
-            Done,
-            Error
-        }
+            NoImagesAdded, //non è stata aggiunta nessuna immagine
+            AddImagesRequested, //è stata inserita un'immagine, e la si vuole aggiungere alla Library
+            AddingImages, //aggiungere alla Library
+            Done, //aggiunta correttamente
+            Error //errore
+        } 
 
         State m_State;
 
@@ -75,6 +77,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         StringBuilder m_StringBuilder = new StringBuilder();
 
+        //updates gui based on the state
         void OnGUI()
         {
             var fontSize = 50;
@@ -83,13 +86,13 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
             float margin = 100;
 
-            GUILayout.BeginArea(new Rect(margin, margin, Screen.width - margin * 2, Screen.height - margin * 2));
+            GUILayout.BeginArea(new Rect(margin, Screen.height - margin * 2, Screen.width - margin * 2, Screen.height - margin * 2)); //draws ui on the bottom of the screen
 
             switch (m_State)
             {
                 case State.NoImagesAdded:
                     {
-                        if (GUILayout.Button("Add images"))
+                        if (GUILayout.Button("Add image from gallery"))
                         {
 
                             PickImage();
@@ -111,7 +114,9 @@ namespace UnityEngine.XR.ARFoundation.Samples
                     }
                 case State.Done:
                     {
-                        GUILayout.Label("All images added");
+                        GUILayout.Label("Image added successfully");
+                        StartCoroutine(WaitASec(3f));
+
                         break;
                     }
                 case State.Error:
@@ -222,6 +227,10 @@ namespace UnityEngine.XR.ARFoundation.Samples
                     {
                         texture = AdaptTexture(texture);
                         m_Images[0].texture = texture;
+                        //m_Images[0].name = m_Images[imagesCounter].name + imagesCounter;
+                 
+
+                        imagesCounter++;
                         m_State = State.AddImagesRequested;
                     }
                     else
@@ -234,6 +243,7 @@ namespace UnityEngine.XR.ARFoundation.Samples
             }, "", "image/*");
         }
 
+        //the funcion makes the newly imported texture readable
         private Texture2D AdaptTexture(Texture2D source)
         {
             RenderTexture renderTex = RenderTexture.GetTemporary(
@@ -253,5 +263,14 @@ namespace UnityEngine.XR.ARFoundation.Samples
             RenderTexture.ReleaseTemporary(renderTex);
             return readableText;
         }
+
+        private IEnumerator WaitASec(float seconds)
+		{
+            yield return new WaitForSeconds(seconds);
+            m_State = State.NoImagesAdded;
+        }
+
+
+
     }
 }
